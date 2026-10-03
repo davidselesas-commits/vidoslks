@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +7,9 @@
   <meta name="robots" content="noindex, nofollow">
 
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     html, body {
       margin: 0;
@@ -28,7 +29,8 @@
       font-family: "Inter", "Segoe UI", system-ui, Arial, sans-serif;
     }
 
-    body::before, body::after {
+    body::before,
+    body::after {
       content: "";
       position: fixed;
       border-radius: 50%;
@@ -56,7 +58,9 @@
     }
 
     @keyframes float {
-      to { transform: translate(60px, 40px) scale(1.15); }
+      to {
+        transform: translate(60px, 40px) scale(1.15);
+      }
     }
 
     .card {
@@ -75,7 +79,10 @@
     }
 
     @keyframes rise {
-      from { opacity: 0; transform: translateY(24px); }
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
     }
 
     .brand {
@@ -83,7 +90,12 @@
       font-size: 22px;
       font-weight: 900;
       letter-spacing: -.01em;
-      background: linear-gradient(90deg, #60a5fa, #a78bfa, #60a5fa);
+      background: linear-gradient(
+        90deg,
+        #60a5fa,
+        #a78bfa,
+        #60a5fa
+      );
       background-size: 200% auto;
       background-clip: text;
       -webkit-background-clip: text;
@@ -92,9 +104,12 @@
     }
 
     @keyframes shine {
-      to { background-position: 200% center; }
+      to {
+        background-position: 200% center;
+      }
     }
 
+    /* Video Player */
     .player {
       position: relative;
       display: block;
@@ -104,7 +119,11 @@
       overflow: hidden;
       cursor: pointer;
       text-decoration: none;
-      background: linear-gradient(135deg, #1e3a8a, #4c1d95);
+      background: linear-gradient(
+        135deg,
+        #1e3a8a,
+        #4c1d95
+      );
       border: 1px solid rgba(255,255,255,.12);
       box-shadow: 0 18px 50px rgba(0,0,0,.5);
     }
@@ -142,7 +161,11 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      background: linear-gradient(
+        135deg,
+        #2563eb,
+        #3b82f6
+      );
       border: 2px solid rgba(255,255,255,.55);
       animation: ring 2s infinite;
       transition: transform .2s ease;
@@ -154,12 +177,15 @@
 
     @keyframes ring {
       0% {
-        box-shadow: 0 0 0 0 rgba(59,130,246,.55),
-                    0 10px 30px rgba(37,99,235,.6);
+        box-shadow:
+          0 0 0 0 rgba(59,130,246,.55),
+          0 10px 30px rgba(37,99,235,.6);
       }
+
       100% {
-        box-shadow: 0 0 0 26px rgba(59,130,246,0),
-                    0 10px 30px rgba(37,99,235,.6);
+        box-shadow:
+          0 0 0 26px rgba(59,130,246,0),
+          0 10px 30px rgba(37,99,235,.6);
       }
     }
 
@@ -195,7 +221,7 @@
       background: rgba(0,0,0,.72);
     }
 
-    /* Video statistics */
+    /* Video Statistics */
     .video-stats {
       display: flex;
       justify-content: space-between;
@@ -228,6 +254,7 @@
       box-shadow: 0 0 8px rgba(34,197,94,.7);
     }
 
+    /* Video Title */
     .vtitle {
       margin: 16px 6px 6px;
       font-size: 18px;
@@ -244,6 +271,7 @@
       color: #aab2c0;
     }
 
+    /* Countdown */
     .redirect {
       margin: 0 auto 14px;
       padding: 12px 14px;
@@ -271,7 +299,11 @@
       display: block;
       height: 100%;
       width: 0;
-      background: linear-gradient(90deg, #3b82f6, #a78bfa);
+      background: linear-gradient(
+        90deg,
+        #3b82f6,
+        #a78bfa
+      );
       transition: width 1s linear;
     }
 
@@ -279,7 +311,8 @@
       margin-top: 10px;
     }
 
-    .actions button, .actions a {
+    .actions button,
+    .actions a {
       display: inline-block;
       margin: 0 4px;
       padding: 8px 14px;
@@ -296,16 +329,25 @@
     }
 
     .actions a.go {
-      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      background: linear-gradient(
+        135deg,
+        #2563eb,
+        #3b82f6
+      );
       border-color: rgba(147,197,253,.4);
     }
 
-    .actions button:hover, .actions a:hover {
+    .actions button:hover,
+    .actions a:hover {
       background: rgba(255,255,255,.14);
     }
 
     .actions a.go:hover {
-      background: linear-gradient(135deg, #1d4ed8, #2563eb);
+      background: linear-gradient(
+        135deg,
+        #1d4ed8,
+        #2563eb
+      );
     }
 
     .foot {
@@ -345,6 +387,7 @@
     >
       <div class="img" id="img"></div>
       <div class="shade"></div>
+
       <span class="tag hd">HD</span>
 
       <div class="play">
@@ -375,11 +418,12 @@
 
     </div>
 
+    <!-- Title and Description -->
     <h1 class="vtitle" id="vtitle"></h1>
 
     <p class="sub" id="sub"></p>
 
-    <!-- Countdown Redirect -->
+    <!-- Redirect Countdown -->
     <div class="redirect" id="redirect">
 
       <div>
@@ -410,6 +454,7 @@
       </div>
     </div>
 
+    <!-- Footer -->
     <div class="foot" id="foot"></div>
 
   </div>
@@ -437,7 +482,16 @@
     var SUBTEXT =
       "Tap the player to watch now, or you'll be redirected automatically.";
 
-    var THUMB = "00298-08_1800.jpg";
+    /* Thumbnail Images */
+    var THUMBNAILS = [
+      "image 1.jpg",
+      "image 2.jpg",
+      "image 3.jpg",
+      "image 4.jpg",
+      "image 5.jpg",
+      "image 6.jpg",
+      "image 7.jpg"
+    ];
 
     var DURATION = "12:34";
 
@@ -483,12 +537,26 @@
       $("dur").style.display = "none";
     }
 
-    /* Thumbnail */
+    /* Random Thumbnail Selection */
+    function getRandomThumbnail() {
+      var index = Math.floor(
+        Math.random() * THUMBNAILS.length
+      );
+
+      return THUMBNAILS[index];
+    }
+
+    var THUMB = getRandomThumbnail();
+
     var probe = new Image();
 
     probe.onload = function () {
       $("img").style.backgroundImage =
-        "url('" + THUMB.replace(/'/g, "\\'") + "')";
+        'url("' + THUMB.replace(/"/g, '\\"') + '")';
+    };
+
+    probe.onerror = function () {
+      $("img").style.backgroundImage = "none";
     };
 
     probe.src = THUMB;
@@ -501,6 +569,7 @@
     }
 
     var viewers = randomInt(9500, 10500);
+
     var totalViews = randomInt(120000, 180000);
 
     $("viewers").textContent =
@@ -518,8 +587,11 @@
     }
 
     var left = DELAY;
+
     var count = $("count");
+
     var fill = $("fill");
+
     var timer;
 
     count.textContent = left;
@@ -564,4 +636,3 @@
 
 </body>
 </html>
-```
