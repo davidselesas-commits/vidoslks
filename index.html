@@ -1,202 +1,552 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Video</title>
   <meta name="robots" content="noindex, nofollow">
+
   <style>
     * { box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; background: #02040a; }
-    body {
-      min-height: 100vh; display: flex; align-items: center; justify-content: center;
-      padding: 28px 16px; position: relative; overflow-x: hidden;
-      color: #e5e7eb;
-      font-family: "Inter", "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #02040a;
     }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 28px 16px;
+      position: relative;
+      overflow-x: hidden;
+      color: #e5e7eb;
+      font-family: "Inter", "Segoe UI", system-ui, Arial, sans-serif;
+    }
+
     body::before, body::after {
-      content: ""; position: fixed; border-radius: 50%;
-      filter: blur(100px); opacity: .5; pointer-events: none;
+      content: "";
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: .5;
+      pointer-events: none;
       animation: float 14s ease-in-out infinite alternate;
     }
-    body::before { width: 420px; height: 420px; top: -140px; left: -100px; background: #1d4ed8; }
-    body::after  { width: 360px; height: 360px; bottom: -140px; right: -80px; background: #7c3aed; animation-delay: -6s; }
-    @keyframes float { to { transform: translate(60px, 40px) scale(1.15); } }
+
+    body::before {
+      width: 420px;
+      height: 420px;
+      top: -140px;
+      left: -100px;
+      background: #1d4ed8;
+    }
+
+    body::after {
+      width: 360px;
+      height: 360px;
+      bottom: -140px;
+      right: -80px;
+      background: #7c3aed;
+      animation-delay: -6s;
+    }
+
+    @keyframes float {
+      to { transform: translate(60px, 40px) scale(1.15); }
+    }
 
     .card {
-      position: relative; z-index: 1; width: 100%; max-width: 560px;
-      padding: 18px 18px 22px; text-align: center;
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 560px;
+      padding: 18px 18px 22px;
+      text-align: center;
       background: rgba(255,255,255,.05);
       border: 1px solid rgba(255,255,255,.09);
       border-radius: 24px;
-      -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
+      backdrop-filter: blur(18px);
       box-shadow: 0 30px 80px rgba(0,0,0,.55);
       animation: rise .7s ease both;
     }
-    @keyframes rise { from { opacity: 0; transform: translateY(24px); } }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(24px); }
+    }
 
     .brand {
-      margin: 4px 0 14px; font-size: 22px; font-weight: 900; letter-spacing: -.01em;
+      margin: 4px 0 14px;
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -.01em;
       background: linear-gradient(90deg, #60a5fa, #a78bfa, #60a5fa);
       background-size: 200% auto;
-      -webkit-background-clip: text; background-clip: text;
-      -webkit-text-fill-color: transparent; color: #60a5fa;
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       animation: shine 5s linear infinite;
     }
-    @keyframes shine { to { background-position: 200% center; } }
 
-    /* pemutar berbentuk gambar */
+    @keyframes shine {
+      to { background-position: 200% center; }
+    }
+
     .player {
-      position: relative; display: block; width: 100%; padding-top: 56.25%;
-      border-radius: 16px; overflow: hidden; cursor: pointer; text-decoration: none;
+      position: relative;
+      display: block;
+      width: 100%;
+      padding-top: 56.25%;
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      text-decoration: none;
       background: linear-gradient(135deg, #1e3a8a, #4c1d95);
       border: 1px solid rgba(255,255,255,.12);
       box-shadow: 0 18px 50px rgba(0,0,0,.5);
     }
+
     .img {
-      position: absolute; inset: 0; background-size: cover; background-position: center;
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
       transition: transform .6s ease;
     }
-    .player:hover .img { transform: scale(1.06); }
-    .shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.05) 40%, rgba(0,0,0,.65)); }
+
+    .player:hover .img {
+      transform: scale(1.06);
+    }
+
+    .shade {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(0,0,0,.05) 40%,
+        rgba(0,0,0,.65)
+      );
+    }
+
     .play {
-      position: absolute; top: 50%; left: 50%; width: 78px; height: 78px; margin: -39px 0 0 -39px;
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 78px;
+      height: 78px;
+      margin: -39px 0 0 -39px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       background: linear-gradient(135deg, #2563eb, #3b82f6);
       border: 2px solid rgba(255,255,255,.55);
-      animation: ring 2s infinite; transition: transform .2s ease;
+      animation: ring 2s infinite;
+      transition: transform .2s ease;
     }
-    .player:hover .play { transform: scale(1.12); }
+
+    .player:hover .play {
+      transform: scale(1.12);
+    }
+
     @keyframes ring {
-      0%   { box-shadow: 0 0 0 0 rgba(59,130,246,.55), 0 10px 30px rgba(37,99,235,.6); }
-      100% { box-shadow: 0 0 0 26px rgba(59,130,246,0), 0 10px 30px rgba(37,99,235,.6); }
+      0% {
+        box-shadow: 0 0 0 0 rgba(59,130,246,.55),
+                    0 10px 30px rgba(37,99,235,.6);
+      }
+      100% {
+        box-shadow: 0 0 0 26px rgba(59,130,246,0),
+                    0 10px 30px rgba(37,99,235,.6);
+      }
     }
-    .tri { width: 0; height: 0; margin-left: 6px; border-top: 13px solid transparent; border-bottom: 13px solid transparent; border-left: 21px solid #fff; }
+
+    .tri {
+      width: 0;
+      height: 0;
+      margin-left: 6px;
+      border-top: 13px solid transparent;
+      border-bottom: 13px solid transparent;
+      border-left: 21px solid #fff;
+    }
+
     .tag {
-      position: absolute; padding: 3px 8px; border-radius: 6px; font-size: 12px; font-weight: 800; color: #fff;
+      position: absolute;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 800;
+      color: #fff;
     }
-    .tag.hd  { left: 10px; top: 10px; background: rgba(37,99,235,.9); letter-spacing: .05em; font-size: 11px; }
-    .tag.dur { right: 10px; bottom: 10px; background: rgba(0,0,0,.72); }
 
-    .vtitle { margin: 16px 6px 6px; font-size: 18px; font-weight: 800; color: #fff; line-height: 1.35; }
-    .sub { margin: 0 auto 16px; max-width: 420px; font-size: 14px; line-height: 1.6; color: #aab2c0; }
+    .tag.hd {
+      left: 10px;
+      top: 10px;
+      background: rgba(37,99,235,.9);
+      letter-spacing: .05em;
+      font-size: 11px;
+    }
 
-    /* hitung mundur redirect */
+    .tag.dur {
+      right: 10px;
+      bottom: 10px;
+      background: rgba(0,0,0,.72);
+    }
+
+    /* Statistik video */
+    .video-stats {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 14px 2px 4px;
+      color: #aab2c0;
+      font-size: 12px;
+    }
+
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .stat-item b {
+      color: #fff;
+      font-weight: 800;
+    }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      display: inline-block;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 8px rgba(34,197,94,.7);
+    }
+
+    .vtitle {
+      margin: 16px 6px 6px;
+      font-size: 18px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.35;
+    }
+
+    .sub {
+      margin: 0 auto 16px;
+      max-width: 420px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #aab2c0;
+    }
+
     .redirect {
-      margin: 0 auto 14px; padding: 12px 14px; border-radius: 14px;
-      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08);
-      font-size: 14px; color: #cbd5e1;
+      margin: 0 auto 14px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.08);
+      font-size: 14px;
+      color: #cbd5e1;
     }
-    .redirect b { color: #fff; font-size: 16px; }
-    .bar { height: 5px; margin-top: 10px; border-radius: 99px; background: rgba(255,255,255,.1); overflow: hidden; }
-    .bar > i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #3b82f6, #a78bfa); transition: width 1s linear; }
-    .actions { margin-top: 10px; }
+
+    .redirect b {
+      color: #fff;
+      font-size: 16px;
+    }
+
+    .bar {
+      height: 5px;
+      margin-top: 10px;
+      border-radius: 99px;
+      background: rgba(255,255,255,.1);
+      overflow: hidden;
+    }
+
+    .bar > i {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, #3b82f6, #a78bfa);
+      transition: width 1s linear;
+    }
+
+    .actions {
+      margin-top: 10px;
+    }
+
     .actions button, .actions a {
-      display: inline-block; margin: 0 4px; padding: 8px 14px; border-radius: 10px;
-      font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; text-decoration: none;
-      border: 1px solid rgba(255,255,255,.15); color: #fff; background: rgba(255,255,255,.06);
+      display: inline-block;
+      margin: 0 4px;
+      padding: 8px 14px;
+      border-radius: 10px;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,.15);
+      color: #fff;
+      background: rgba(255,255,255,.06);
       transition: background .2s;
     }
-    .actions a.go { background: linear-gradient(135deg, #2563eb, #3b82f6); border-color: rgba(147,197,253,.4); }
-    .actions button:hover, .actions a:hover { background: rgba(255,255,255,.14); }
-    .actions a.go:hover { background: linear-gradient(135deg, #1d4ed8, #2563eb); }
 
-    .foot { margin-top: 14px; font-size: 12px; color: #667085; }
-    @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+    .actions a.go {
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      border-color: rgba(147,197,253,.4);
+    }
+
+    .actions button:hover, .actions a:hover {
+      background: rgba(255,255,255,.14);
+    }
+
+    .actions a.go:hover {
+      background: linear-gradient(135deg, #1d4ed8, #2563eb);
+    }
+
+    .foot {
+      margin-top: 14px;
+      font-size: 12px;
+      color: #667085;
+    }
+
+    @media (max-width: 420px) {
+      .video-stats {
+        justify-content: center;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
   </style>
 </head>
+
 <body>
 
   <div class="card">
+
     <div class="brand" id="brand"></div>
 
-    <a class="player" id="player" href="#" rel="noopener noreferrer" aria-label="Play video">
+    <!-- Player -->
+    <a
+      class="player"
+      id="player"
+      href="#"
+      rel="noopener noreferrer"
+      aria-label="Buka video"
+    >
       <div class="img" id="img"></div>
       <div class="shade"></div>
       <span class="tag hd">HD</span>
-      <div class="play"><div class="tri"></div></div>
+
+      <div class="play">
+        <div class="tri"></div>
+      </div>
+
       <span class="tag dur" id="dur"></span>
     </a>
+
+    <!-- Statistik -->
+    <div class="video-stats">
+      <div class="stat-item">
+        <span class="live-dot"></span>
+        <span>
+          <b id="viewers">10.000</b>
+          orang sedang menonton
+        </span>
+      </div>
+
+      <div class="stat-item">
+        <span>▶</span>
+        <span>
+          Telah ditonton
+          <b id="totalViews">125.000</b>
+          kali
+        </span>
+      </div>
+    </div>
 
     <h1 class="vtitle" id="vtitle"></h1>
     <p class="sub" id="sub"></p>
 
+    <!-- Countdown -->
     <div class="redirect" id="redirect">
-      <div>Redirecting in <b id="count">5</b> seconds…</div>
-      <div class="bar"><i id="fill"></i></div>
+      <div>
+        Redirecting in
+        <b id="count">5</b>
+        seconds…
+      </div>
+
+      <div class="bar">
+        <i id="fill"></i>
+      </div>
+
       <div class="actions">
-        <a class="go" id="go" href="#" rel="noopener noreferrer">Go now</a>
-        <button id="cancel" type="button">Cancel</button>
+        <a
+          class="go"
+          id="go"
+          href="#"
+          rel="noopener noreferrer"
+        >Go now</a>
+
+        <button id="cancel" type="button">
+          Cancel
+        </button>
       </div>
     </div>
 
     <div class="foot" id="foot"></div>
+
   </div>
 
   <noscript>
-    <p style="position:relative;z-index:2;text-align:center"><a style="color:#60a5fa" href="https://www.profitableratecpmnetwork.com/nc5zmcjibj?key=267ff36a04b29602b5b5fbac97af086f">Continue to video</a></p>
+    <p style="position:relative;z-index:2;text-align:center">
+      <a
+        style="color:#60a5fa"
+        href="https://www.profitableratecpmnetwork.com/nc5zmcjibj?key=267ff36a04b29602b5b5fbac97af086f"
+      >
+        Continue to video
+      </a>
+    </p>
   </noscript>
 
   <script>
   (function () {
-    /* ================= CONFIG: EDIT HERE ================= */
-    var BRAND       = "videy.co";
+
+    /* ================= CONFIG ================= */
+
+    var BRAND = "videy.co";
     var VIDEO_TITLE = "videy.co";
-    var SUBTEXT     = "Tap the player to watch now, or you'll be redirected automatically.";
-    var THUMB       = "00298-08_1800.jpg";            // gambar di repo yang sama, atau URL penuh
-    var DURATION    = "12:34";                    // "" untuk menyembunyikan
-    var TARGET_URL  = "https://www.profitableratecpmnetwork.com/nc5zmcjibj?key=267ff36a04b29602b5b5fbac97af086f";       // tujuan klik play & redirect
-    var DELAY       = 5;                          // detik sebelum redirect otomatis
-    var AUTO_REDIRECT = true;                     // false = hanya lewat klik
-    var FOOTER      = "Powered by videy.co";
-    /* ===================================================== */
 
-    function $(id) { return document.getElementById(id); }
+    var SUBTEXT =
+      "Tap the player to watch now, or you'll be redirected automatically.";
 
-    /* hanya izinkan http/https */
-    var safe = /^https?:\/\//i.test(TARGET_URL) ? TARGET_URL : "https://www.profitableratecpmnetwork.com/nc5zmcjibj?key=267ff36a04b29602b5b5fbac97af086f";
+    var THUMB = "00298-08_1800.jpg";
 
-    $("brand").textContent  = BRAND;
+    var DURATION = "12:34";
+
+    var TARGET_URL =
+      "https://www.profitableratecpmnetwork.com/nc5zmcjibj?key=267ff36a04b29602b5b5fbac97af086f";
+
+    var DELAY = 5;
+
+    var AUTO_REDIRECT = true;
+
+    var FOOTER = "Powered by videy.co";
+
+    /* =========================================== */
+
+    function $(id) {
+      return document.getElementById(id);
+    }
+
+    /* Konfigurasi URL */
+    var fallbackURL =
+      "https://www.profitableratecpmnetwork.com/nc5zmcjibj?key=267ff36a04b29602b5b5fbac97af086f";
+
+    var safe = /^https?:\/\//i.test(TARGET_URL)
+      ? TARGET_URL
+      : fallbackURL;
+
+    /* Informasi video */
+    $("brand").textContent = BRAND;
     $("vtitle").textContent = VIDEO_TITLE;
-    $("sub").textContent    = SUBTEXT;
-    $("foot").textContent   = FOOTER;
+    $("sub").textContent = SUBTEXT;
+    $("foot").textContent = FOOTER;
+
     document.title = VIDEO_TITLE + " - " + BRAND;
 
-    var player = $("player");
-    player.href = safe;
+    /* Link player */
+    $("player").href = safe;
     $("go").href = safe;
 
-    if (DURATION) { $("dur").textContent = DURATION; } else { $("dur").style.display = "none"; }
+    /* Durasi */
+    if (DURATION) {
+      $("dur").textContent = DURATION;
+    } else {
+      $("dur").style.display = "none";
+    }
 
+    /* Thumbnail */
     var probe = new Image();
-    probe.onload = function () { $("img").style.backgroundImage = "url('" + THUMB + "')"; };
+
+    probe.onload = function () {
+      $("img").style.backgroundImage =
+        "url('" + THUMB.replace(/'/g, "\\'") + "')";
+    };
+
     probe.src = THUMB;
 
-    /* redirect otomatis dengan hitung mundur */
-    var box = $("redirect");
-    if (!AUTO_REDIRECT) { box.style.display = "none"; return; }
+    /* Statistik simulasi */
+    function randomInt(min, max) {
+      return Math.floor(
+        Math.random() * (max - min + 1)
+      ) + min;
+    }
 
-    var left = DELAY, count = $("count"), fill = $("fill"), timer;
+    var viewers = randomInt(9500, 10500);
+    var totalViews = randomInt(120000, 180000);
+
+    $("viewers").textContent =
+      viewers.toLocaleString("id-ID");
+
+    $("totalViews").textContent =
+      totalViews.toLocaleString("id-ID");
+
+    /* Countdown redirect */
+    var box = $("redirect");
+
+    if (!AUTO_REDIRECT) {
+      box.style.display = "none";
+      return;
+    }
+
+    var left = DELAY;
+    var count = $("count");
+    var fill = $("fill");
+    var timer;
+
     count.textContent = left;
 
     timer = setInterval(function () {
       left--;
+
       count.textContent = left;
-      fill.style.width = ((DELAY - left) / DELAY * 100) + "%";
+
+      fill.style.width =
+        ((DELAY - left) / DELAY * 100) + "%";
+
       if (left <= 0) {
         clearInterval(timer);
         location.replace(safe);
       }
     }, 1000);
-    setTimeout(function () { fill.style.width = (1 / DELAY * 100) + "%"; }, 30);
 
+    setTimeout(function () {
+      fill.style.width = (1 / DELAY * 100) + "%";
+    }, 30);
+
+    /* Batalkan redirect */
     $("cancel").addEventListener("click", function () {
       clearInterval(timer);
-      box.querySelector("div").textContent = "Auto-redirect cancelled.";
+
+      box.querySelector("div").textContent =
+        "Auto-redirect cancelled.";
+
       this.style.display = "none";
+
       fill.parentNode.style.display = "none";
     });
+
   })();
   </script>
+
 </body>
 </html>
