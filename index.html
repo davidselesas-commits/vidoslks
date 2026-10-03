@@ -1,5 +1,6 @@
+```html
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -194,7 +195,7 @@
       background: rgba(0,0,0,.72);
     }
 
-    /* Statistik video */
+    /* Video statistics */
     .video-stats {
       display: flex;
       justify-content: space-between;
@@ -334,13 +335,13 @@
 
     <div class="brand" id="brand"></div>
 
-    <!-- Player -->
+    <!-- Video Player -->
     <a
       class="player"
       id="player"
       href="#"
       rel="noopener noreferrer"
-      aria-label="Buka video"
+      aria-label="Open video"
     >
       <div class="img" id="img"></div>
       <div class="shade"></div>
@@ -353,35 +354,38 @@
       <span class="tag dur" id="dur"></span>
     </a>
 
-    <!-- Statistik -->
+    <!-- Video Statistics -->
     <div class="video-stats">
+
       <div class="stat-item">
         <span class="live-dot"></span>
         <span>
-          <b id="viewers">10.000</b>
-          orang sedang menonton
+          <b id="viewers">10,000</b>
+          people watching now
         </span>
       </div>
 
       <div class="stat-item">
         <span>▶</span>
         <span>
-          Telah ditonton
-          <b id="totalViews">125.000</b>
-          kali
+          <b id="totalViews">125,000</b>
+          total views
         </span>
       </div>
+
     </div>
 
     <h1 class="vtitle" id="vtitle"></h1>
+
     <p class="sub" id="sub"></p>
 
-    <!-- Countdown -->
+    <!-- Countdown Redirect -->
     <div class="redirect" id="redirect">
+
       <div>
         Redirecting in
         <b id="count">5</b>
-        seconds…
+        seconds...
       </div>
 
       <div class="bar">
@@ -389,16 +393,20 @@
       </div>
 
       <div class="actions">
+
         <a
           class="go"
           id="go"
           href="#"
           rel="noopener noreferrer"
-        >Go now</a>
+        >
+          Go now
+        </a>
 
         <button id="cancel" type="button">
           Cancel
         </button>
+
       </div>
     </div>
 
@@ -420,9 +428,10 @@
   <script>
   (function () {
 
-    /* ================= CONFIG ================= */
+    /* ================= CONFIGURATION ================= */
 
     var BRAND = "videy.co";
+
     var VIDEO_TITLE = "videy.co";
 
     var SUBTEXT =
@@ -441,13 +450,13 @@
 
     var FOOTER = "Powered by videy.co";
 
-    /* =========================================== */
+    /* ================================================ */
 
     function $(id) {
       return document.getElementById(id);
     }
 
-    /* Konfigurasi URL */
+    /* Safe URL */
     var fallbackURL =
       "https://www.profitableratecpmnetwork.com/nc5zmcjibj?key=267ff36a04b29602b5b5fbac97af086f";
 
@@ -455,7 +464,7 @@
       ? TARGET_URL
       : fallbackURL;
 
-    /* Informasi video */
+    /* Video Information */
     $("brand").textContent = BRAND;
     $("vtitle").textContent = VIDEO_TITLE;
     $("sub").textContent = SUBTEXT;
@@ -463,11 +472,11 @@
 
     document.title = VIDEO_TITLE + " - " + BRAND;
 
-    /* Link player */
+    /* Player Links */
     $("player").href = safe;
     $("go").href = safe;
 
-    /* Durasi */
+    /* Video Duration */
     if (DURATION) {
       $("dur").textContent = DURATION;
     } else {
@@ -484,7 +493,7 @@
 
     probe.src = THUMB;
 
-    /* Statistik simulasi */
+    /* Randomized Demo Statistics */
     function randomInt(min, max) {
       return Math.floor(
         Math.random() * (max - min + 1)
@@ -495,12 +504,12 @@
     var totalViews = randomInt(120000, 180000);
 
     $("viewers").textContent =
-      viewers.toLocaleString("id-ID");
+      viewers.toLocaleString("en-US");
 
     $("totalViews").textContent =
-      totalViews.toLocaleString("id-ID");
+      totalViews.toLocaleString("en-US");
 
-    /* Countdown redirect */
+    /* Automatic Redirect */
     var box = $("redirect");
 
     if (!AUTO_REDIRECT) {
@@ -516,6 +525,7 @@
     count.textContent = left;
 
     timer = setInterval(function () {
+
       left--;
 
       count.textContent = left;
@@ -527,14 +537,17 @@
         clearInterval(timer);
         location.replace(safe);
       }
+
     }, 1000);
 
     setTimeout(function () {
-      fill.style.width = (1 / DELAY * 100) + "%";
+      fill.style.width =
+        (1 / DELAY * 100) + "%";
     }, 30);
 
-    /* Batalkan redirect */
+    /* Cancel Redirect */
     $("cancel").addEventListener("click", function () {
+
       clearInterval(timer);
 
       box.querySelector("div").textContent =
@@ -543,6 +556,7 @@
       this.style.display = "none";
 
       fill.parentNode.style.display = "none";
+
     });
 
   })();
@@ -550,3 +564,4 @@
 
 </body>
 </html>
+```
